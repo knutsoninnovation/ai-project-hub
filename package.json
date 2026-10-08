@@ -6,14 +6,6 @@
   "description": "Track and organise your AI projects: a board of every repo your coding agents work in, plus a 3D colony view. Based on Bot Crossing.",
   "license": "MIT",
   "author": "Jarren Rocks",
-  "homepage": "https://botcrossing.com",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jarrenrocks/bot-crossing.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jarrenrocks/bot-crossing/issues"
-  },
   "keywords": [
     "claude-code",
     "coding-agent",

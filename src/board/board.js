@@ -13,7 +13,7 @@ import { demoData } from './demo.js'
  */
 
 const POLL_MS = 15000
-const DEMO = new URLSearchParams(location.search).has('demo')
+const DEMO = new URLSearchParams(location.search).has('demo') || window.PROJECT_HUB_DEMO === true
 const root = document.getElementById('board')
 
 let threads = []
