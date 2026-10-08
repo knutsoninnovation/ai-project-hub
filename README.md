@@ -15,6 +15,8 @@ by repo, and puts them on a board you organise yourself:
 Both pages share one state file, `data/colony.json`, and never write to any harness.
 `/board.html?demo` shows the board with sample data, no harness needed.
 
+On Windows, double-click **Start Project Hub.cmd**: it installs on first run and opens the board.
+
 > **Based on [Bot Crossing](https://github.com/Station-Sciences/bot-crossing)** by Jarren Rocks
 > (MIT). This is an independent fork, not endorsed by or affiliated with that project; the name
 > "Bot Crossing" is reserved by its author (see [TRADEMARKS.md](TRADEMARKS.md)), which is why this
