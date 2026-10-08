@@ -1,24 +1,33 @@
-# Bot Crossing — your agent threads, as a colony
+# Project Hub — track and organise your AI projects
 
-**[botcrossing.com](https://botcrossing.com)**
+A local dashboard for every project your coding agents work in. It scans the agent threads on
+this machine (Claude Code, Codex, Cursor, OpenCode, Antigravity, Hermes, Kilo Code), groups them
+by repo, and puts them on a board you organise yourself:
 
-Every coding-agent thread on this machine is a little bot. They walk out of the ship, claim
-a plot for their repo, and build something. When one needs you it stops and holds a `?` over
-its head; click it and the thread opens back in whichever harness it came from.
+- **Board** (`/board.html`) — projects in columns (Ideas, Active, Paused, Shipped) you drag
+  between; a **Needs you** strip of every thread waiting on a reply or stuck on an error; live
+  counts of what is running; priority, pinning, tags, a goal line and notes per project; search
+  and filters by tag and harness; open a thread, start a new one, or show the folder in one click.
+  Projects with no threads yet (ideas) can be added by hand.
+- **Colony** (`/`) — the original 3D view, where every thread is a little bot building on its
+  repo's plot. Press **B** there to jump to the board.
 
-It reads the harness's own files, on your own machine. Nothing is uploaded, there is no
-account, and **it never writes to a harness at all** — `data/colony.json`, where the map lives,
-is the only file it writes anywhere.
+Both pages share one state file, `data/colony.json`, and never write to any harness.
+`/board.html?demo` shows the board with sample data, no harness needed.
 
-> **Status:** published as-is. I built this for myself and cannot promise to maintain it —
-> issues and PRs are welcome but may go unanswered, and forking is an entirely reasonable
-> thing to do. [CONTRIBUTING.md](CONTRIBUTING.md) sets out what to expect.
+> **Based on [Bot Crossing](https://github.com/Station-Sciences/bot-crossing)** by Jarren Rocks
+> (MIT). This is an independent fork, not endorsed by or affiliated with that project; the name
+> "Bot Crossing" is reserved by its author (see [TRADEMARKS.md](TRADEMARKS.md)), which is why this
+> fork is called Project Hub. Everything below the next heading is the upstream documentation,
+> and applies here unchanged.
 
 ## Run it
 
 ```bash
 npm install && npm run dev
 ```
+
+Then open http://localhost:5274/board.html for the board, or http://localhost:5274 for the colony.
 
 Needs Node 22.13 or newer. `npm test` runs the suite.
 

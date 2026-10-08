@@ -58,12 +58,37 @@ const emptyState = () => ({
   seen: {},
   hiddenProjects: [],
   viewedAt: {},
+  projects: {},
   settings: null,
   updatedAt: 0,
 })
 
 const asObject = (v) => (v && typeof v === 'object' && !Array.isArray(v) ? v : {})
 const asArray = (v) => (Array.isArray(v) ? v : [])
+
+/**
+ * What the project board records about a repo, keyed on the same project name a zone uses:
+ * a status column, a priority, free-form tags, a goal line and notes. Like everything else here
+ * it is the board's own invention, so it lives in this file and never in a harness.
+ */
+export const PROJECT_STATUSES = ['idea', 'active', 'paused', 'shipped']
+const str = (v, max) => (typeof v === 'string' ? v.slice(0, max) : '')
+function cleanProjects(v) {
+  const out = {}
+  for (const [name, meta] of Object.entries(asObject(v))) {
+    if (!name || !meta || typeof meta !== 'object') continue
+    out[name] = {
+      status: PROJECT_STATUSES.includes(meta.status) ? meta.status : 'active',
+      priority: [1, 2, 3].includes(meta.priority) ? meta.priority : 2,
+      tags: asArray(meta.tags).map((t) => str(t, 40).trim()).filter(Boolean).slice(0, 20),
+      goal: str(meta.goal, 280),
+      notes: str(meta.notes, 20000),
+      pinned: meta.pinned === true,
+      updatedAt: Number(meta.updatedAt) || 0,
+    }
+  }
+  return out
+}
 
 async function readState() {
   try {
@@ -77,6 +102,7 @@ async function readState() {
       seen: asObject(raw.seen),
       hiddenProjects: asArray(raw.hiddenProjects).map(String).filter(Boolean),
       viewedAt: asObject(raw.viewedAt),
+      projects: cleanProjects(raw.projects),
       settings: raw.settings && typeof raw.settings === 'object' ? raw.settings : null,
       updatedAt: Number(raw.updatedAt) || 0,
     }
@@ -112,6 +138,7 @@ async function writeState(next) {
     seen: asObject(next.seen),
     hiddenProjects: asArray(next.hiddenProjects).map(String).filter(Boolean),
     viewedAt: asObject(next.viewedAt),
+    projects: cleanProjects(next.projects),
     settings: next.settings && typeof next.settings === 'object' ? next.settings : null,
     updatedAt: Date.now(),
   }
@@ -390,7 +417,7 @@ export async function apiMiddleware(req, res, next) {
   if (!url.pathname.startsWith('/api/')) return next ? next() : send(res, 404, { error: 'Not found' })
 
   if (!isLocalRequest(req)) {
-    return send(res, 403, { error: 'Bot Crossing only answers its own page on this machine' })
+    return send(res, 403, { error: 'Project Hub only answers its own page on this machine' })
   }
 
   try {

@@ -41,7 +41,7 @@ const app = document.getElementById('app')
 app.insertAdjacentHTML(
   'beforeend',
   `<div class="boot"><div class="inner">
-     <h1>Bot Crossing</h1>
+     <h1>Project Hub</h1>
      <p>Scanning for agent threads…</p>
      <div class="bar"><i></i></div>
    </div></div>`
@@ -95,7 +95,7 @@ const actions = {
     const url = engine.canvas.toDataURL('image/png')
     const a = document.createElement('a')
     a.href = url
-    a.download = `bot-crossing-${colony.planet.id}-${stamp()}.png`
+    a.download = `project-hub-${colony.planet.id}-${stamp()}.png`
     a.click()
     hud.toast('Screenshot saved')
   },
@@ -802,6 +802,10 @@ window.addEventListener('keydown', (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return
 
   switch (e.key) {
+    case 'b':
+    case 'B':
+      window.location.href = '/board.html'
+      break
     case 'h':
     case 'H':
       hud.toggleUi()
