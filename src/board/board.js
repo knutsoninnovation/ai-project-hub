@@ -126,6 +126,8 @@ root.innerHTML = `
 `
 
 const $ = (sel) => root.querySelector(sel)
+// A static preview has no colony to go back to.
+if (window.PROJECT_HUB_DEMO === true) root.querySelector('a[href="/"]').hidden = true
 const drawer = $('.drawer')
 
 $('.search').addEventListener('input', (e) => {
